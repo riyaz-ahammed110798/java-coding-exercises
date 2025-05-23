@@ -28,19 +28,28 @@ import java.util.HashMap;
 public class RomanInteger {
     static int romanInteger(String roman){
         HashMap<Character, Integer> romanToInt =  new HashMap<>();
-        romanToInt.put('I', 1);
         romanToInt.put('V', 5);
+        romanToInt.put('I', 1);
         romanToInt.put('X', 10);
         romanToInt.put('L', 50);
         romanToInt.put('C', 100);
         romanToInt.put('D', 500);
         romanToInt.put('M', 1000);
-        for(char ch : roman.toCharArray()){
+
+        int result = 0, prev = 0;
+        for(int i = roman.length() - 1 ; i >= 0; i--){
+            int peek = romanToInt.get(roman.charAt(i));
+            if(peek < prev)
+                result -= peek;
+            else
+                result += peek;
+            prev = peek;
 
         }
-        return 1;
+        return result;
     }
     public static void main(String[] args) {
+        System.out.print(romanInteger("MCMXCIV"));
 
     }
 }
